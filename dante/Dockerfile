@@ -12,6 +12,8 @@ ENV DANTE_MD5 68c2ce12119e12cea11a90c7a80efa8f
 ENV DANTE_FILE dante.tar.gz
 ENV DANTE_TEMP dante
 ENV DANTE_DEPS build-essential curl
+ENV DANTE_USERNAME dante
+ENV DANTE_PASSWORD dante
 
 RUN set -xe \
     && apt-get update \
@@ -27,6 +29,10 @@ RUN set -xe \
         && rm -rf $DANTE_TEMP \
     && apt-get purge -y --auto-remove $DANTE_DEPS \
     && rm -rf /var/lib/apt/lists/*
+
+RUN set -xe \
+    && useradd $DANTE_USERNAME \
+    && echo $DANTE_USERNAME:$DANTE_PASSWORD | chpasswd
 
 ADD sockd.conf /etc/sockd.conf
 
