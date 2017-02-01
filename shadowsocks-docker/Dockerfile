@@ -19,6 +19,7 @@ RUN \
         pcre \
     && curl -fSL https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz | tar xz \
     && cd shadowsocks-libev-$SS_VER \
+    && ./autogen.sh \
     && ./configure \
     && make \
     && make install \
