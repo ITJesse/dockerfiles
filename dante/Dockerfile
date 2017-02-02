@@ -30,11 +30,8 @@ RUN set -xe \
     && apt-get purge -y --auto-remove $DANTE_DEPS \
     && rm -rf /var/lib/apt/lists/*
 
-RUN set -xe \
-    && useradd $DANTE_USERNAME \
-    && echo $DANTE_USERNAME:$DANTE_PASSWORD | chpasswd
-
 ADD sockd.conf /etc/sockd.conf
+ADD start.sh /start.sh
 
 ENV CFGFILE /etc/sockd.conf
 ENV PIDFILE /tmp/sockd.pid
@@ -42,5 +39,5 @@ ENV WORKERS 10
 
 EXPOSE 1080
 
-CMD sockd -f $CFGFILE -p $PIDFILE -N $WORKERS
+CMD /start.sh
 
