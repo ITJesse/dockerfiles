@@ -15,8 +15,15 @@ dante:
     - "1080:1080"
   volumes:
     - ./sockd.conf:/etc/sockd.conf
+  environment:
+    - DANTE_USERNAME=username
+    - DNATE_PASSWORD=password
   restart: always
 ```
+
+## Authentication
+
+Default username and password is both `dante`. Please make sure to set the new password.
 
 ## sockd.conf
 
@@ -25,7 +32,7 @@ debug: 0
 logoutput: stderr
 internal: 0.0.0.0 port = 1080
 external: eth0
-socksmethod: username none
+socksmethod: username
 clientmethod: none
 user.privileged: root
 user.unprivileged: nobody
@@ -47,13 +54,9 @@ socks pass {
 ```
 $ docker-compose up -d
 
-# To enable username authentication, please uncomment `socksmethod: username`.
-$ docker exec -it dante_dante_1 bash
->>> useradd username
->>> echo username:password | chpasswd
->>> exit
+# Default username and password is `dante`
 
-$ curl -x socks5h://username:password@127.0.0.1:1080 https://www.youtube.com
+$ curl -x socks5h://dante:dante@127.0.0.1:1080 https://www.youtube.com
 ```
 
 [1]: http://www.inet.no/dante/index.html
