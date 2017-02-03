@@ -58,4 +58,4 @@ CMD ss-server -s $SERVER_ADDR \
               --fast-open \
               -d $SS_DNS1 \
               -d $SS_DNS2 \
-              -u
+              -u -v
