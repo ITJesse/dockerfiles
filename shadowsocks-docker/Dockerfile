@@ -2,12 +2,13 @@
 # Dockerfile for shadowsocks-libev
 #
 
-FROM alpine:3.5
+FROM alpine
 MAINTAINER kev <noreply@datageek.info>
 
 ARG SS_VER=3.0.0
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_VER/shadowsocks-libev-$SS_VER.tar.gz
 
+ENV SERVER_ADDR=0.0.0.0
 ENV SS_PORT=443
 ENV SS_PASSWORD=
 ENV SS_METHOD=chacha20
@@ -49,7 +50,8 @@ USER root
 
 EXPOSE $SS_PORT/tcp $SS_PORT/udp
 
-CMD ss-server -p $SS_PORT \
+CMD ss-server -s $SERVER_ADDR \
+              -p $SS_PORT \
               -k ${SS_PASSWORD:-$(hostname)} \
               -m $SS_METHOD \
               -t $SS_TIMEOUT \
