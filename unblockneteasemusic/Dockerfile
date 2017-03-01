@@ -1,7 +1,7 @@
 FROM node:7.2.0-alpine
 
 ENV NODE_ENV production
-ENV VERSION 2.1.5
+ENV VERSION 2.3.1
 
 RUN npm install unblock-netease-music@${VERSION} -g && npm cache clean
 
