@@ -1,4 +1,4 @@
-FROM node:7.10.0-alpine
+FROM node:8.2.1-alpine
 
 ENV NODE_ENV production
 ENV VERSION 2.5.1
